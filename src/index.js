@@ -1,5 +1,5 @@
 // Your code here
-
+/*
 document.addEventListener("DOMContentLoaded", getCharacter);
 
 function getCharacter() {
@@ -34,39 +34,80 @@ function showCharacterDetails(character) {
 
   const voteCountElement = document.querySelector("#vote-count");
   voteCountElement.textContent = character.votes;
+}
 
-  /*const detailedInfo = document.querySelector("#detailed-info");
+const votesForm = document.querySelector("#votes-form");
+votesForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // remove the reloading functionality of the form
 
-  detailedInfo.innerHTML = "";
+  getVotes();
+});
+resetBtn.addEventListener("click", () => {
+  voteCount.innerHTML = 0;
+});
 
-  const characterDetails = `
-     <img src="${character.image}" alt="${character.name}" />
-    <h2>${character.name}</h2>
-    <p>Votes: ${character.votes}</p>
-    <p>${character.description}</p>
-    `;
+function getVotes() {
+  const votesInput = document.querySelector("#votes");
+  const newVotes = parseInt(votesInput.value);
 
-  //add to Dom
-  detailedInfo.innerHTML = characterDetails;*/
+  return (voteCount.innerHTML = currentVotes + newVotes);
+}
+
+*/
+document.addEventListener("DOMContentLoaded", getCharacter);
+
+function getCharacter() {
+  const characterName = document.querySelector("#character-bar");
+
+  // Fetching characters from JSON
+  fetch("http://localhost:3000/characters")
+    .then((response) => response.json())
+    .then((characters) => {
+      characters.forEach((character) => {
+        const span = document.createElement("span");
+        span.textContent = character.name;
+
+        span.addEventListener("click", () => {
+          showCharacterDetails(character);
+        });
+
+        characterName.appendChild(span);
+      });
+    });
+}
+
+function showCharacterDetails(character) {
+  const nameElement = document.querySelector("#name");
+  const imageElement = document.querySelector("#image");
+  const voteCountElement = document.querySelector("#vote-count");
+
+  nameElement.textContent = character.name;
+  imageElement.src = character.image;
+  imageElement.alt = character.name;
+  voteCountElement.textContent = character.votes;
+
+  // Store the current character's ID for vote updates
+  voteCountElement.dataset.characterId = character.id;
 }
 
 const votesForm = document.querySelector("#votes-form");
 votesForm.addEventListener("submit", (event) => {
   event.preventDefault();
-
-  const votesInput = document.querySelector("#votes");
-  const newVotes = parseInt(votesInput.value);
-  console.log("New Votes:", newVotes); //TESTING
-
-  const currentVotesElement = document.querySelector("#vote-count");
-  console.log("Current Votes Element:", currentVotesElement);
-
-  const currentVotes = parseInt(currentVotesElement.textContent);
-  console.log("Current Votes Number:", currentVotes); //TESTING
-
-  const totalVotes = currentVotes + newVotes;
-  console.log("Total Votes:", totalVotes);
-
-  currentVotesElement.textContent = `Votes: ${totalVotes}`;
-  votesInput.value = "";
+  getVotes();
 });
+
+// Selecting reset button correctly
+const resetBtn = document.querySelector("#reset-btn");
+resetBtn.addEventListener("click", () => {
+  document.querySelector("#vote-count").textContent = 0;
+});
+
+function getVotes() {
+  const votesInput = document.querySelector("#votes");
+  const voteCountElement = document.querySelector("#vote-count");
+
+  const newVotes = parseInt(votesInput.value) || 0;
+  const currentVotes = parseInt(voteCountElement.textContent) || 0;
+
+  voteCountElement.textContent = currentVotes + newVotes;
+}
