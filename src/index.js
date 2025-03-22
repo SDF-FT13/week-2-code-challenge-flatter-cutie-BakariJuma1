@@ -25,7 +25,17 @@ function getCharacter() {
 }
 
 function showCharacterDetails(character) {
-  const detailedInfo = document.querySelector("#detailed-info");
+  const nameElement = document.querySelector("#name");
+  nameElement.textContent = character.name;
+  //console.log(character); //testing
+  const imageElement = document.querySelector("#image");
+  imageElement.src = character.image;
+  imageElement.alt = character.name;
+
+  const voteCountElement = document.querySelector("#vote-count");
+  voteCountElement.textContent = character.votes;
+
+  /*const detailedInfo = document.querySelector("#detailed-info");
 
   detailedInfo.innerHTML = "";
 
@@ -37,7 +47,7 @@ function showCharacterDetails(character) {
     `;
 
   //add to Dom
-  detailedInfo.innerHTML = characterDetails;
+  detailedInfo.innerHTML = characterDetails;*/
 }
 
 const votesForm = document.querySelector("#votes-form");
@@ -46,11 +56,17 @@ votesForm.addEventListener("submit", (event) => {
 
   const votesInput = document.querySelector("#votes");
   const newVotes = parseInt(votesInput.value);
-  const currentVotesElement = document.querySelector("#detailed-info ");
+  console.log("New Votes:", newVotes); //TESTING
 
-  console.log(currentVotesElement); //testing
-  const currentVotes = parseInt(currentVotesElement.textContent.split(": ")[1]);
+  const currentVotesElement = document.querySelector("#vote-count");
+  console.log("Current Votes Element:", currentVotesElement);
+
+  const currentVotes = parseInt(currentVotesElement.textContent);
+  console.log("Current Votes Number:", currentVotes); //TESTING
+
   const totalVotes = currentVotes + newVotes;
+  console.log("Total Votes:", totalVotes);
+
   currentVotesElement.textContent = `Votes: ${totalVotes}`;
   votesInput.value = "";
 });
