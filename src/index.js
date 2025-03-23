@@ -63,6 +63,7 @@ function getVotes() {
     updateVotes(characterId, votes);
   }
 }
+/*
 //THIS FUNCTION UPDATES THE SERVER
 function updateVotes(characterId, updatedVotes) {
   fetch(`http://localhost:3000/characters/${characterId}`, {
@@ -77,3 +78,4 @@ function updateVotes(characterId, updatedVotes) {
       console.log("vote updated succesfully:", updatedCharacter);
     });
 }
+*/
