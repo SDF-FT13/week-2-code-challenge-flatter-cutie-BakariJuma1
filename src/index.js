@@ -55,4 +55,25 @@ function getVotes() {
   const currentVotes = parseInt(voteCountElement.textContent) || 0;
 
   voteCountElement.textContent = currentVotes + newVotes;
+
+  //Bonus
+  voteCountElement = voteCountElement.dataset.characterId;
+
+  if (characterId) {
+    updateVotes(characterId, votes);
+  }
+}
+//THIS FUNCTION UPDATES THE SERVER
+function updateVotes(characterId, updatedVotes) {
+  fetch(`http://localhost:3000/characters/${characterId}`, {
+    method: "PATCH",
+    headers: {
+      "content-Type": "application/json",
+    },
+    body: JSON.stringify({ votes: votes }),
+  })
+    .then((response) => response.json())
+    .then((updatedCharacter) => {
+      console.log("vote updated succesfully:", updatedCharacter);
+    });
 }
