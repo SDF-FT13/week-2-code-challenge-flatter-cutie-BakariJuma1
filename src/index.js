@@ -21,7 +21,7 @@ function getCharacter() {
       });
     });
 }
-
+//show character
 function showCharacterDetails(character) {
   const nameElement = document.querySelector("#name");
   const imageElement = document.querySelector("#image");
@@ -47,7 +47,7 @@ const resetBtn = document.querySelector("#reset-btn");
 resetBtn.addEventListener("click", () => {
   document.querySelector("#vote-count").textContent = 0;
 });
-
+//
 function getVotes() {
   const votesInput = document.querySelector("#votes");
   const voteCountElement = document.querySelector("#vote-count");
@@ -80,20 +80,3 @@ function updateVotes(characterId, updatedVotes) {
       console.log("Votes updated:", data);
     });
 }
-
-/*
-//THIS FUNCTION UPDATES THE SERVER
-function updateVotes(characterId, updatedVotes) {
-  fetch(`http://localhost:3000/characters/${characterId}`, {
-    method: "PATCH",
-    headers: {
-      "content-Type": "application/json",
-    },
-    body: JSON.stringify({ votes: votes }),
-  })
-    .then((response) => response.json())
-    .then((updatedCharacter) => {
-      console.log("vote updated succesfully:", updatedCharacter);
-    });
-}
-*/
