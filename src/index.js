@@ -6,7 +6,7 @@ function getCharacter() {
   const characterName = document.querySelector("#character-bar");
 
   // Fetch characters from JSON Server
-  fetch("http://localhost:3001/characters")
+  fetch("http://localhost:3000/characters")
     .then((response) => response.json())
     .then((characters) => {
       characters.forEach((character) => {
@@ -60,7 +60,7 @@ function getVotes() {
 
   const characterId = voteCountElement.dataset.characterId;
 
-  // Call updateVotes function if characterId exists
+  // if characterId exists
   if (characterId) {
     updateVotes(characterId, updatedVotes);
   }
@@ -68,7 +68,7 @@ function getVotes() {
 
 // Function to update votes in db.json using PATCH
 function updateVotes(characterId, updatedVotes) {
-  fetch(`http://localhost:3001/characters/${characterId}`, {
+  fetch(`http://localhost:3000/characters/${characterId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
